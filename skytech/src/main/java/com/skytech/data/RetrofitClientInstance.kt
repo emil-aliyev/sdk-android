@@ -3,7 +3,6 @@ package com.skytech.data
 import android.content.Context
 import com.skytech.util.Preferences
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -13,7 +12,6 @@ object RetrofitClientInstance {
     private lateinit var preferences: Preferences
     private var retrofit: Retrofit? = null
     private const val BASE_URL = "https://pre-widget-api.kapitalbank.az/sdk/"
-
 
 
     fun getRetrofitInstance(context: Context): Retrofit? {

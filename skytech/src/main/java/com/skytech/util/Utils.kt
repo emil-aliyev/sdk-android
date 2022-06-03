@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import okhttp3.internal.and
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
@@ -56,15 +55,12 @@ object Utils {
         if (capabilities != null) {
             when {
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
                     return true
                 }
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                     return true
                 }
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
                     return true
                 }
             }
@@ -73,7 +69,7 @@ object Utils {
     }
 
 
-    fun Context.checkChromeVersion(): Boolean {
+    fun Context.isChromeInstalledAndVersionGreaterThan80(): Boolean {
         val pInfo: PackageInfo = try {
             this.packageManager.getPackageInfo("com.android.chrome", 0)
         } catch (e: PackageManager.NameNotFoundException) {
@@ -82,14 +78,12 @@ object Utils {
             return false
         }
 
-        //Chrome has versions like 68.0.3440.91, we need to find the major version
         //using the first dot we find in the string
         val firstDotIndex = pInfo.versionName.indexOf(".")
         //take only the number before the first dot excluding the dot itself
         val majorVersion = pInfo.versionName.substring(0, firstDotIndex)
 
-        Log.d("majorVersion", "isChromeInstalledAndVersionGreaterThan65: $majorVersion")
-        return majorVersion.toInt() > 100
+        return majorVersion.toInt() > 80
     }
 
 }

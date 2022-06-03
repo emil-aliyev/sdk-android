@@ -1,16 +1,15 @@
 package com.skytech
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
-import android.webkit.*
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,16 +21,13 @@ import com.skytech.model.UserCredentials
 import com.skytech.util.CredentialHelper
 import com.skytech.util.HASH_ID
 import com.skytech.util.Preferences
-import com.skytech.util.Utils.checkChromeVersion
 import com.skytech.util.Utils.hmac
+import com.skytech.util.Utils.isChromeInstalledAndVersionGreaterThan80
 import com.skytech.util.Utils.isOnline
 import com.skytech.util.X_APP_ID
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import okhttp3.internal.and
 import java.lang.ref.WeakReference
-import javax.crypto.Mac
-import javax.crypto.spec.SecretKeySpec
 
 
 class SkyTechActivity : AppCompatActivity() {
@@ -50,9 +46,7 @@ class SkyTechActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[SkyTechViewModel::class.java]
         preferences = Preferences(applicationContext)
 
-        if (this.checkChromeVersion()) {
-            finish()
-        } else {
+        if (this.isChromeInstalledAndVersionGreaterThan80()) {
             initWebView()
 
             if (!this.isOnline()) {
@@ -90,6 +84,10 @@ class SkyTechActivity : AppCompatActivity() {
 
                 viewModel.getUrl(applicationContext, it.userCredentials!!)
             }
+        } else {
+            binding.chromeWarning.visibility = View.VISIBLE
+            binding.webView.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
     }
 
