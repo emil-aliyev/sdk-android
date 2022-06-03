@@ -16,7 +16,7 @@ Add it in your root build.gradle at the end of repositories:
   Step 2. Add the dependency
 
  
-# implementation 'com.github.emil-aliyev:sdk-android:1.0.2'
+# implementation 'com.github.emil-aliyev:sdk-android:1.0.3'
 
 -----------------------------------------------------------
 
