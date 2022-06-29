@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-        SkyTech.Builder().key("rPyCMWFMk27ucwYPpZE6")
-            .appID("f4ee05e97792cf5a5f249c8af2fc8068")
+        SkyTech.Builder().key("api_key")
+            .appID("app_id")
             .userCredentials(userCredentials)
             .open(this)
     }
