@@ -1,3 +1,7 @@
+# Prerequisite:
+
+Chrome version need to be greater than 70 WebView to work properly.
+
 # To get a Git project into your build:
 
 Step 1. Add the JitPack repository to your build file
