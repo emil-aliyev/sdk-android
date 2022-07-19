@@ -67,23 +67,4 @@ object Utils {
         }
         return false
     }
-
-
-    fun Context.isChromeInstalledAndVersionGreaterThan80(): Boolean {
-        val pInfo: PackageInfo = try {
-            this.packageManager.getPackageInfo("com.android.chrome", 0)
-        } catch (e: PackageManager.NameNotFoundException) {
-            //chrome is not installed on the device
-                e.printStackTrace()
-            return false
-        }
-
-        //using the first dot we find in the string
-        val firstDotIndex = pInfo.versionName.indexOf(".")
-        //take only the number before the first dot excluding the dot itself
-        val majorVersion = pInfo.versionName.substring(0, firstDotIndex)
-
-        return majorVersion.toInt() > 80
-    }
-
 }

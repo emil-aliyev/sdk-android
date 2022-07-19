@@ -22,7 +22,6 @@ import com.skytech.util.CredentialHelper
 import com.skytech.util.HASH_ID
 import com.skytech.util.Preferences
 import com.skytech.util.Utils.hmac
-import com.skytech.util.Utils.isChromeInstalledAndVersionGreaterThan80
 import com.skytech.util.Utils.isOnline
 import com.skytech.util.X_APP_ID
 import com.squareup.moshi.JsonAdapter
@@ -46,48 +45,42 @@ class SkyTechActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[SkyTechViewModel::class.java]
         preferences = Preferences(applicationContext)
 
-        if (this.isChromeInstalledAndVersionGreaterThan80()) {
-            initWebView()
+        initWebView()
 
-            if (!this.isOnline()) {
-                showMessage(getString(R.string.no_internet))
+        if (!this.isOnline()) {
+            showMessage(getString(R.string.no_internet))
 
-                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-                return
-            }
+            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+            return
+        }
 
 
-            viewModel.url.observe(this) {
-                if (isOnline())
-                    loadWebView(it)
-            }
+        viewModel.url.observe(this) {
+            if (isOnline())
+                loadWebView(it)
+        }
 
-            viewModel.loadingState.observe(this) {
-                handleLoading(it)
-            }
+        viewModel.loadingState.observe(this) {
+            handleLoading(it)
+        }
 
-            viewModel.sdkErrorState.observe(this) {
-                finish()
-            }
+        viewModel.sdkErrorState.observe(this) {
+            finish()
+        }
 
-            CredentialHelper.credential.observe(this) {
-                val moshi = Moshi.Builder().build()
-                val jsonAdapter: JsonAdapter<UserCredentials> =
-                    moshi.adapter(UserCredentials::class.java)
+        CredentialHelper.credential.observe(this) {
+            val moshi = Moshi.Builder().build()
+            val jsonAdapter: JsonAdapter<UserCredentials> =
+                moshi.adapter(UserCredentials::class.java)
 
-                val json = jsonAdapter.toJson(it.userCredentials)
+            val json = jsonAdapter.toJson(it.userCredentials)
 
-                val hashValue = hmac(json.toString(), "${it.api_key}${it.app_id}")
+            val hashValue = hmac(json.toString(), "${it.api_key}${it.app_id}")
 
-                preferences.saveToPrefs(HASH_ID, hashValue as String)
-                preferences.saveToPrefs(X_APP_ID, it.app_id as String)
+            preferences.saveToPrefs(HASH_ID, hashValue as String)
+            preferences.saveToPrefs(X_APP_ID, it.app_id as String)
 
-                viewModel.getUrl(applicationContext, it.userCredentials!!)
-            }
-        } else {
-            binding.chromeWarning.visibility = View.VISIBLE
-            binding.webView.visibility = View.GONE
-            binding.progressBar.visibility = View.GONE
+            viewModel.getUrl(applicationContext, it.userCredentials!!)
         }
     }
 
