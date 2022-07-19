@@ -1,6 +1,6 @@
 # Prerequisite:
 
-Chrome version need to be greater than 70 WebView to work properly.
+Chrome version needs to be greater than 70 in order WebView to work properly.
 
 # To get a Git project into your build:
 
