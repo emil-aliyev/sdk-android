@@ -17,17 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.skytech.databinding.ActivitySkyTechBinding
-import com.skytech.model.UserCredentials
 import com.skytech.util.CredentialHelper
 import com.skytech.util.HASH_ID
 import com.skytech.util.Preferences
 import com.skytech.util.Utils.hmac
 import com.skytech.util.Utils.isOnline
 import com.skytech.util.X_APP_ID
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import java.lang.ref.WeakReference
-
 
 class SkyTechActivity : AppCompatActivity() {
     private lateinit var preferences: Preferences
@@ -69,18 +65,12 @@ class SkyTechActivity : AppCompatActivity() {
         }
 
         CredentialHelper.credential.observe(this) {
-            val moshi = Moshi.Builder().build()
-            val jsonAdapter: JsonAdapter<UserCredentials> =
-                moshi.adapter(UserCredentials::class.java)
-
-            val json = jsonAdapter.toJson(it.userCredentials)
-
-            val hashValue = hmac(json.toString(), "${it.api_key}${it.app_id}")
+            val hashValue = hmac(it.jsonParams.toString(), "${it.api_key}${it.app_id}")
 
             preferences.saveToPrefs(HASH_ID, hashValue as String)
             preferences.saveToPrefs(X_APP_ID, it.app_id as String)
 
-            viewModel.getUrl(applicationContext, it.userCredentials!!)
+            it.jsonParams?.let { it1 -> viewModel.getUrl(applicationContext, it1) }
         }
     }
 

@@ -9,6 +9,9 @@ import com.skytech.data.ApiService
 import com.skytech.data.RetrofitClientInstance.getRetrofitInstance
 import com.skytech.model.AuthResponse
 import com.skytech.model.UserCredentials
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,10 +27,13 @@ class SkyTechViewModel : ViewModel() {
         loadingState.value = true
     }
 
-    fun getUrl(context: Context, userCredentials: UserCredentials) {
+    fun getUrl(context: Context, jsonObject: JSONObject) {
 
         val api: ApiService = getRetrofitInstance(context)!!.create(ApiService::class.java)
-        val call: Call<AuthResponse> = api.auth(userCredentials)
+
+        val res = jsonObject.toString().toRequestBody("application/json".toMediaType())
+
+        val call: Call<AuthResponse> = api.auth(res)
 
         call.enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>?, response: Response<AuthResponse>) {
