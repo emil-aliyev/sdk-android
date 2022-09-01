@@ -31,38 +31,11 @@ First Step : Create user object and include  language, user email, user full nam
 
 For Example:
 ----------------------------
-      val userCredentials =
-            UserCredentials(
-                "en", Contact(
-                    "user@test.com", "Name Surname",
-                    "+994XXXXXXXXX"
-                )
-            )
- -----------------------------------
- 
-   SkyTech.Builder()
-            .key("key")
-            .appID("appID")
-            .userCredentials(userCredentials)
-            .open(this)
-	    
- -----------------------------------
 
-Second Step : Get SkyTech SDK credentials 
-----------------------------------------
-
-1.  Sign in to the  [SkyTech Web platform](https://skybot-web.kapitalbank.az)  and go to the  [**Apps -> Livechat app**](https://skybot-web.kapitalbank.az/apps/webchat)  page.
-2.  Click on Install button, if you didn't installed livechat previously, if yes skip this step
-3.  Next click  **Configure**  then  **SDK**.
-4.  Copy the App ID and API key.  
-----------------------------------------
-
-Third Step : Start SkyTech SDK with this example.
------------------------------------------------
 Identity verification
 Choose how you want to identify your users uniquely. Note that you can choose only email and phone from the default contact fields. Additionally, you can use any text and integer-based custom fields to identify your users. Make sure that you provide a value for that unique field in the contact object and also set it as a field value in identity object.
 
- 	val credentials = JSONObject()
+     val credentials = JSONObject()
         credentials.put("language", "en")
 
         val contact = JSONObject()
@@ -76,6 +49,7 @@ Choose how you want to identify your users uniquely. Note that you can choose on
 
         credentials.put("contact", contact)
         credentials.put("identity", identity)
+	
 
 
     SkyTech.Builder()
@@ -84,3 +58,16 @@ Choose how you want to identify your users uniquely. Note that you can choose on
             .firebaseToken("your_fb_token")
             .userCredentials(credentials)
             .open(this)
+	    
+	    
+ -----------------------------------
+ 
+
+	  
+Second Step : Get SkyTech SDK credentials 
+----------------------------------------
+
+1.  Sign in to the  [SkyTech Web platform](https://skybot-web.kapitalbank.az)  and go to the  [**Apps -> Livechat app**](https://skybot-web.kapitalbank.az/apps/webchat)  page.
+2.  Click on Install button, if you didn't installed livechat previously, if yes skip this step
+3.  Next click  **Configure**  then  **SDK**.
+4.  Copy the App ID and API key.  
