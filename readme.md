@@ -59,9 +59,28 @@ Second Step : Get SkyTech SDK credentials
 
 Third Step : Start SkyTech SDK with this example.
 -----------------------------------------------
+Identity verification
+Choose how you want to identify your users uniquely. Note that you can choose only email and phone from the default contact fields. Additionally, you can use any text and integer-based custom fields to identify your users. Make sure that you provide a value for that unique field in the contact object and also set it as a field value in identity object.
 
- SkyTech.Builder()
-                .key("key value")
-                .appID("app id")
-                .userCredentials(userCredentials)
-                .open(this)
+ 	val credentials = JSONObject()
+        credentials.put("language", "en")
+
+        val contact = JSONObject()
+        val identity = JSONObject()
+
+        contact.put("email", "user@test.com")
+        contact.put("fullname", "name Surname")
+        contact.put("phone", "+994XXXXXXX")
+
+        identity.put("field", "email")
+
+        credentials.put("contact", contact)
+        credentials.put("identity", identity)
+
+
+    SkyTech.Builder()
+            .key("key")
+            .appID("appID")
+            .firebaseToken("your_fb_token")
+            .userCredentials(credentials)
+            .open(this)
