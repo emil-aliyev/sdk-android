@@ -34,7 +34,6 @@ data class SkyTech constructor(
 
             firebaseToken?.let {
                 preferences.saveToPrefs(FIREBASE_TOKEN, it)
-                Log.d("SkyTech", "open: $it")
             }
 
             val intent = Intent(context.applicationContext, SkyTechActivity::class.java)
@@ -45,6 +44,5 @@ data class SkyTech constructor(
 
             context.startActivity(intent)
         }
-
     }
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClientInstance {
     private lateinit var preferences: Preferences
     private var retrofit: Retrofit? = null
-    private const val BASE_URL = "https://skybot-widget-api.kapitalbank.az/"
+    private const val BASE_URL = "https://skybot-widget-api.kapitalbank.az/sdk/"
 
 
     fun getRetrofitInstance(context: Context): Retrofit? {
@@ -27,8 +27,6 @@ object RetrofitClientInstance {
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
             .build()
-
-
 
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
