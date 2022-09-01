@@ -51,7 +51,7 @@ For Example:
 Second Step : Get SkyTech SDK credentials 
 ----------------------------------------
 
-1.  Sign in to the  [SkyTech Web platform](https://pre-web.kapitalbank.az)  and go to the  [**Apps -> Livechat app**](https://pre-web.kapitalbank.az/apps/webchat)  page.
+1.  Sign in to the  [SkyTech Web platform](https://skybot-web.kapitalbank.az)  and go to the  [**Apps -> Livechat app**](https://skybot-web.kapitalbank.az/apps/webchat)  page.
 2.  Click on Install button, if you didn't installed livechat previously, if yes skip this step
 3.  Next click  **Configure**  then  **SDK**.
 4.  Copy the App ID and API key.  
