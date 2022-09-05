@@ -71,3 +71,16 @@ Second Step : Get SkyTech SDK credentials
 2.  Click on Install button, if you didn't installed livechat previously, if yes skip this step
 3.  Next click  **Configure**  then  **SDK**.
 4.  Copy the App ID and API key.  
+-----------------------------------------------------------
+
+
+
+In order to handle clicks on notifications there is `click_action` parameter in notification body. The click_action key is `OPEN_SKYTECH_CHAT`. You can get more info on how to implement click_action on Android [here](https://firebase.google.com/docs/cloud-messaging/http-server-ref)
+
+Sample notification body:
+
+	     “notification”: {
+             “click_action”: “OPEN_SKYTECH_CHAT”,
+             “title”: subject,
+             “body”: message
+            }
