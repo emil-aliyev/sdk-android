@@ -75,7 +75,7 @@ Second Step : Get SkyTech SDK credentials
 
 
 
-In order to handle clicks on notifications there is `click_action` parameter in notification body. The click_action key is `OPEN_SKYTECH_CHAT`. You can get more info on how to implement click_action on Android [here](https://firebase.google.com/docs/cloud-messaging/http-server-ref)
+In order to handle clicks on notifications there is `click_action` parameter in notification body. The click_action key is `OPEN_SDK_CHAT`. You can get more info on how to implement click_action on Android [here](https://firebase.google.com/docs/cloud-messaging/http-server-ref)
 
 Sample notification body:
 
