@@ -80,7 +80,7 @@ In order to handle clicks on notifications there is `click_action` parameter in 
 Sample notification body:
 
 	     “notification”: {
-             “click_action”: “OPEN_SKYTECH_CHAT”,
+             “click_action”: “OPEN_SDK_CHAT”,
              “title”: subject,
              “body”: message
             }
