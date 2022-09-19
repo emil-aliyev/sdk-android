@@ -3,6 +3,7 @@ package com.skytech
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -111,7 +112,14 @@ class SkyTechActivity : AppCompatActivity() {
                 request: WebResourceRequest?
             ): Boolean {
                 val url = request?.url.toString()
-                view?.loadUrl(url)
+
+                if (url.contains("https://skybot-web.kapitalbank.az/api/livechat/sdk/chat")) {
+                    view?.loadUrl(url)
+                } else {
+                    val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(i)
+                }
+
                 return super.shouldOverrideUrlLoading(view, request)
             }
 
