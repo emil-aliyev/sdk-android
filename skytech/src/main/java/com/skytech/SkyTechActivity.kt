@@ -113,11 +113,12 @@ class SkyTechActivity : AppCompatActivity() {
             ): Boolean {
                 val url = request?.url.toString()
 
-                if (url.contains("https://skybot-web.kapitalbank.az/api/livechat/sdk/chat")) {
+                if (url.contains(BuildConfig.BASE_URL)) {
                     view?.loadUrl(url)
                 } else {
                     val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(i)
+                    return true
                 }
 
                 return super.shouldOverrideUrlLoading(view, request)

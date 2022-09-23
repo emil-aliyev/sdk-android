@@ -1,6 +1,8 @@
 package com.skytech.data
 
 import android.content.Context
+import com.skytech.BuildConfig
+import com.skytech.data.RetrofitClientInstance.BASE_URL
 import com.skytech.util.Preferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +13,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClientInstance {
     private lateinit var preferences: Preferences
     private var retrofit: Retrofit? = null
-    private const val BASE_URL = "https://skybot-widget-api.kapitalbank.az/sdk/"
+    private const val BASE_URL = BuildConfig.BASE_URL
 
 
     fun getRetrofitInstance(context: Context): Retrofit? {
