@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.skytech.data.BASE_URL
 import com.skytech.databinding.ActivitySkyTechBinding
 import com.skytech.util.CredentialHelper
 import com.skytech.util.HASH_ID
@@ -113,7 +114,7 @@ class SkyTechActivity : AppCompatActivity() {
             ): Boolean {
                 val url = request?.url.toString()
 
-                if (url.contains(BuildConfig.BASE_URL)) {
+                if (url.contains(BASE_URL)) {
                     view?.loadUrl(url)
                 } else {
                     val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
