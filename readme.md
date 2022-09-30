@@ -84,3 +84,6 @@ Sample notification body:
              “title”: subject,
              “body”: message
             }
+Use `ChatSdkManager` class in order get state of SDK (whether sdk is visible or not); specifically for handling notification on foreground
+
+	ChatSdkManager.getSdkForegroundState()
