@@ -14,6 +14,7 @@
     <application >
         <activity
             android:name=".SkyTechActivity"
+            android:launchMode="singleTop"
             android:exported="false" />
     </application>
 

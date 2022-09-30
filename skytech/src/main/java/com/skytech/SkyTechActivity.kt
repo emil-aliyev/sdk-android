@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.skytech.data.BASE_URL
 import com.skytech.databinding.ActivitySkyTechBinding
+import com.skytech.manager.ChatSdkManager
 import com.skytech.util.CredentialHelper
 import com.skytech.util.HASH_ID
 import com.skytech.util.Preferences
@@ -99,7 +100,6 @@ class SkyTechActivity : AppCompatActivity() {
         }
     }
 
-
     fun launchGetMultipleContents(type: String) {
         contentLauncher.launch(type)
     }
@@ -158,9 +158,18 @@ class SkyTechActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showMessage(message: String) {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ChatSdkManager.setSdkForeground(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        ChatSdkManager.setSdkForeground(false)
     }
 }
