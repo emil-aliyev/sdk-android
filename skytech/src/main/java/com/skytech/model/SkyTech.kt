@@ -2,11 +2,9 @@ package com.skytech.model
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.skytech.SkyTechActivity
 import com.skytech.util.CredentialHelper
-import com.skytech.util.FIREBASE_TOKEN
-import com.skytech.util.Preferences
+import com.skytech.util.Utils
 import org.json.JSONObject
 
 data class SkyTech constructor(
@@ -30,19 +28,17 @@ data class SkyTech constructor(
             apply { this.jsonParams = jsonParams }
 
         fun open(context: Context) {
-            val preferences = Preferences(context)
+            setCredentials()
 
-            firebaseToken?.let {
-                preferences.saveToPrefs(FIREBASE_TOKEN, it)
-            }
 
             val intent = Intent(context.applicationContext, SkyTechActivity::class.java)
-            CredentialHelper.credential.value =
-                Builder(api_key, app_id, firebaseToken, jsonParams)
-
-
-
             context.startActivity(intent)
+        }
+
+        private fun setCredentials() {
+            val hashValue = Utils.hmac(jsonParams.toString(), "$api_key$app_id")
+            val hashCredential = HashCredential(hashValue, app_id, firebaseToken, jsonParams)
+            CredentialHelper.credential.value = hashCredential
         }
     }
 }

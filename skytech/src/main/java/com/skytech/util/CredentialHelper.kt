@@ -1,7 +1,8 @@
 package com.skytech.util
 
-import com.skytech.model.SkyTech
+import com.skytech.model.HashCredential
 
 object CredentialHelper {
-    val credential = SingleLiveEvent<SkyTech.Builder>()
+    val credential = SingleLiveEvent<HashCredential>()
 }
+

@@ -1,15 +1,11 @@
 package com.skytecksdk
 
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.skytech.manager.ChatSdkManager
 import com.skytech.model.SkyTech
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
-    val TAG = "geek"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

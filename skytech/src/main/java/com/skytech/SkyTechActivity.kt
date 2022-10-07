@@ -21,15 +21,10 @@ import com.skytech.data.BASE_URL
 import com.skytech.databinding.ActivitySkyTechBinding
 import com.skytech.manager.ChatSdkManager
 import com.skytech.util.CredentialHelper
-import com.skytech.util.HASH_ID
-import com.skytech.util.Preferences
-import com.skytech.util.Utils.hmac
 import com.skytech.util.Utils.isOnline
-import com.skytech.util.X_APP_ID
 import java.lang.ref.WeakReference
 
 class SkyTechActivity : AppCompatActivity() {
-    private lateinit var preferences: Preferences
     private lateinit var binding: ActivitySkyTechBinding
     private lateinit var viewModel: SkyTechViewModel
     private val chromeClient = AppChromeClient(WeakReference(this))
@@ -42,7 +37,6 @@ class SkyTechActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[SkyTechViewModel::class.java]
-        preferences = Preferences(applicationContext)
 
         initWebView()
 
@@ -68,11 +62,6 @@ class SkyTechActivity : AppCompatActivity() {
         }
 
         CredentialHelper.credential.observe(this) {
-            val hashValue = hmac(it.jsonParams.toString(), "${it.api_key}${it.app_id}")
-
-            preferences.saveToPrefs(HASH_ID, hashValue as String)
-            preferences.saveToPrefs(X_APP_ID, it.app_id as String)
-
             it.jsonParams?.let { it1 -> viewModel.getUrl(applicationContext, it1) }
         }
     }
