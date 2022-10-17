@@ -26,7 +26,7 @@ data class SkyTech constructor(
         fun key(api_key: String) = apply { this.api_key = api_key }
         fun appID(app_id: String) = apply { this.app_id = app_id }
         fun firebaseToken(firebaseToken: String) = apply { this.firebaseToken = firebaseToken }
-        fun messageId(messageId: Long) = apply { this.messageId = messageId }
+        fun messageId(messageId: Long?) = apply { this.messageId = messageId }
         fun userCredentials(jsonParams: JSONObject) =
             apply { this.jsonParams = jsonParams }
 
