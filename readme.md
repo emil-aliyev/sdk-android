@@ -55,7 +55,7 @@ Choose how you want to identify your users uniquely. Note that you can choose on
     SkyTech.Builder()
             .key("key")
             .appID("appID")
-	    .messageId(null) // send message if you have one
+	        .messageId(null) // send messageId if you have one
             .firebaseToken("your_fb_token")
             .userCredentials(credentials)
             .open(this)
