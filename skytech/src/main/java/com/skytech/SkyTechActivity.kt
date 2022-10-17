@@ -5,12 +5,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,6 +29,7 @@ class SkyTechActivity : AppCompatActivity() {
     private lateinit var viewModel: SkyTechViewModel
     private val chromeClient = AppChromeClient(WeakReference(this))
     private var contentLauncher: ActivityResultLauncher<String> = getMultipleContentLauncher()
+    private var messageId: Long? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +63,13 @@ class SkyTechActivity : AppCompatActivity() {
         }
 
         CredentialHelper.credential.observe(this) {
-            it.jsonParams?.let { it1 -> viewModel.getUrl(applicationContext, it1) }
+            messageId = it.messageId
+            it.jsonParams?.let { it1 ->
+                viewModel.getUrl(applicationContext, it1)
+            }
         }
     }
+
 
     private fun initWebView() {
         binding.apply {
@@ -120,6 +125,10 @@ class SkyTechActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+
+                messageId?.let {
+                    binding.webView.evaluateJavascript(getRateJsScript(it), null)
+                }
             }
 
             override fun onReceivedError(
@@ -160,5 +169,9 @@ class SkyTechActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         ChatSdkManager.setSdkForeground(false)
+    }
+
+    private fun getRateJsScript(messageId: Long): String {
+        return "MainLivechatInitializer(\"openRateMessageById\", ${messageId})"
     }
 }

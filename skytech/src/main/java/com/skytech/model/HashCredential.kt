@@ -7,4 +7,5 @@ data class HashCredential(
     val appId: String? = null,
     val firebaseToken: String? = null,
     val jsonParams: JSONObject? = null,
+    val messageId: Long? = null,
 )
