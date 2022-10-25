@@ -65,7 +65,7 @@ class SkyTechActivity : AppCompatActivity() {
         CredentialHelper.credential.observe(this) {
             messageId = it.messageId
             it.jsonParams?.let { it1 ->
-                viewModel.getUrl(applicationContext, it1)
+                viewModel.getUrl(it1)
             }
         }
     }

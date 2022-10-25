@@ -1,14 +1,11 @@
 package com.skytech
 
 import android.content.Context
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skytech.data.ApiService
 import com.skytech.data.RetrofitClientInstance.getRetrofitInstance
 import com.skytech.model.AuthResponse
-import com.skytech.model.UserCredentials
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
@@ -27,9 +24,9 @@ class SkyTechViewModel : ViewModel() {
         loadingState.value = true
     }
 
-    fun getUrl(context: Context, jsonObject: JSONObject) {
+    fun getUrl(jsonObject: JSONObject) {
 
-        val api: ApiService = getRetrofitInstance(context)!!.create(ApiService::class.java)
+        val api: ApiService = getRetrofitInstance()!!.create(ApiService::class.java)
 
         val res = jsonObject.toString().toRequestBody("application/json".toMediaType())
 
